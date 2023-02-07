@@ -1,0 +1,11 @@
+version: 2
+sources:
+  - name: RYP_CBB_DBO
+    database: sources
+    tables:
+      - name: PICKS_MADNESS_SQUARES
+      - name: CBB_SQUARES_ENTRIES
+      - name: PICKS_NCAA_BB_PICK8
+      - name: CBB_PICK8_ENTRIES
+      - name: CBB_H2H_PICKS
+      - name: CBB_H2H_ENTRIES

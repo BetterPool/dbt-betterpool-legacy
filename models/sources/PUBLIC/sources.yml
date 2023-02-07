@@ -1,0 +1,6 @@
+version: 2
+sources:
+  - name: PUBLIC
+    database: dev
+    tables:
+      - name: FACT_LEAGUE_PAYMENTS

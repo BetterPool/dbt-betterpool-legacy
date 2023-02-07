@@ -1,0 +1,6 @@
+version: 2
+sources:
+  - name: RYP_SOCCER_DBO
+    database: sources
+    tables:
+      - name: WORLDCUP_PICKS_GROUPSTAGE

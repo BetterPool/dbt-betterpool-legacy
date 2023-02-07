@@ -1,0 +1,14 @@
+version: 2
+sources:
+  - name: RYP_PICK_LOGS
+    database: sources
+    tables:
+      - name: PICK_LOG_PGA
+      - name: PICK_LOG_NHL
+      - name: PICK_LOG_NBA
+      - name: PICK_LOG_MLB
+      - name: PICK_LOG_CBB
+      - name: PICK_LOG_CFB
+      - name: PICK_LOG_NFL
+      - name: PICK_LOG_SOCCER
+      - name: PICK_LOG_GENERIC

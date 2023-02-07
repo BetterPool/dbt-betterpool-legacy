@@ -1,0 +1,13 @@
+version: 2
+sources:
+  - name: RYP_NFL_2021_2022
+    database: sources
+    tables:
+      - name: PICKS_NFL_SQUARES
+      - name: NFL_SQUARES_SETTINGS
+      - name: GAMES_NFL
+      - name: NFL_SQUARES_ENTRIES
+      - name: NFL_PICKEM_ENTRIES
+      - name: NFL_SURVIVOR_ENTRIES
+      - name: PICKS_WITH_SPREAD
+      - name: PICKS_SURVIVOR

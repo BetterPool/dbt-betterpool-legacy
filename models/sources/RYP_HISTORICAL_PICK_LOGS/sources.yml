@@ -1,0 +1,6 @@
+version: 2
+sources:
+  - name: RYP_HISTORICAL_PICK_LOGS
+    database: sources
+    tables:
+      - name: PICK_LOG_2016

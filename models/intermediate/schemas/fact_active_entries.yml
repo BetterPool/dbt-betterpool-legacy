@@ -1,0 +1,40 @@
+version: 2
+models:
+- name: fact_active_entries
+  description: Contains pick data. Everytime a pick has been made it is associated with an entry. 
+  columns:
+  - name: ACTIVE_ENTRY_ID
+    description: 'Select distinct this field when querrying distinct entrys. For RYP this field contains sheetid + entryID for OFP audit_id'
+
+  - name: ENTRY_ID
+    description: 'ID for the Entry'
+
+  - name: MEMBER_EMAIL
+    description: 'The email of the member who made the pick'
+
+  - name: SHEET_ID
+    description: 'Sheet is associated with a pick of a specific team, to find picks you querry for distinct sheet_id, team_id'
+
+  - name: TEAM_ID
+    description: 'Team ID of the Entry'
+
+  - name: LEAGUE_ID
+    description: 'League ID is a foreign key to the league_types table. This allows us to find the description of the league type'
+
+  - name: LEAGUE_TYPE
+    description: 'Format of the league'
+
+  - name: LEAGUE_CATEGORY
+    description: 'The sport'
+
+  - name: PICK_DATE
+    description: 'The date that the pick was made'
+
+  - name: FISCAL_PERIOD
+    description: 'The fiscal year the pick was made in'
+
+  - name: FISCAL_QUARTER
+    description: 'The fiscal quarter the pick was made in'
+
+  - name: SOURCE
+    description: 'What product is this data coming from'

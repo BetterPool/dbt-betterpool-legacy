@@ -1,0 +1,8 @@
+version: 2
+sources:
+  - name: RYP_RUNYOURPOOL_2021_05_01_DBO
+    database: sources
+    tables:
+      - name: TEAMS
+      - name: MEMBERS
+      - name: LEAGUES

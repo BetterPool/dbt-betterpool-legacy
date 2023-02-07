@@ -1,0 +1,16 @@
+version: 2
+sources:
+  - name: BACK_LOG_ENTRIES
+    database: prod
+    tables:
+      - name: CFB_BACK_LOG
+      - name: MLB_BACK_LOG
+      - name: NBA_BACK_LOG
+      - name: NHL_BACK_LOG
+      - name: PGA_BACK_LOG
+      - name: NFL_BACK_LOG
+      - name: NFL_BACK_LOG_2
+      - name: NFL_BACK_LOG_3
+      - name: NFL_BACK_LOG_4
+      - name: NHL_BACK_LOG_2
+      - name: MULTI_SPORT_BACK_LOG

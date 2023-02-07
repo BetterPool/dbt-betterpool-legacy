@@ -1,0 +1,13 @@
+version: 2
+sources:
+  - name: OFP_DBO
+    database: sources
+    tables:
+      - name: ALLMEMBERS
+      - name: ALLSPORTS
+      - name: OFPPOOLTYPES
+      - name: OFPAUDITPICKS
+      - name: OFPPOOLS
+      - name: OFPTRANSACTIONS
+      - name: OFPDELETEDPOOLS
+      - name: OFPPOOLMEMBERS

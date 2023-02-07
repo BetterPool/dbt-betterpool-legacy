@@ -1,0 +1,17 @@
+version: 2
+sources:
+  - name: RYP_CBB_2022
+    database: sources
+    tables:
+      - name: PICKS_NCAA_BB
+      - name: CBB_BRACKET_ENTRIES
+      - name: PICKS_NCAA_BB_SURVIVOR
+      - name: CBB_SURVIVOR_ENTRIES
+      - name: PICKS_MADNESS_SQUARES
+      - name: CBB_SQUARES_ENTRIES
+      - name: PICKS_NCAA_BB_PICK8
+      - name: CBB_PICK8_ENTRIES
+      - name: CBB_H2H_PICKS
+      - name: CBB_H2H_ENTRIES
+      - name: WOMENS_BRACKET_PICKS
+      - name: WOMENS_BRACKET_ENTRIES

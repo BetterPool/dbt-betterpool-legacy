@@ -1,0 +1,123 @@
+{{ 
+    config(
+        materialized='table', 
+        alias='FACT_LEAGUES',
+	tags=["fact"]
+    ) 
+}}
+
+WITH COMMISH AS (
+    SELECT DISTINCT
+        C.LEAGUE_ID,
+        COUNT(DISTINCT C.COMMISH_EMAIL) AS TOTAL_COMMISH,
+        C.SOURCE,
+	    CASE WHEN C.COMMISH_ID IN (2389521, 3) THEN 1 ELSE 0 END AS IS_PUBLIC
+    
+    FROM {{ ref('fact_league_commish') }}  C
+    GROUP BY 1,3, 4
+),
+
+TOTAL_ACTIVE_TEAMS AS (
+    SELECT DISTINCT
+        LEAGUE_ID,
+        YEAR(PICK_DATE) AS YEAR,
+        COUNT(DISTINCT TEAM_ID, LEAGUE_ID) AS TOTAL_ACTIVE_TEAMS,
+        COUNT(DISTINCT SHEET_ID, TEAM_ID) AS TOTAL_ENTRIES,
+        SOURCE
+    
+    FROM {{ ref('fact_active_entries') }}
+    GROUP BY 1,2,5
+    ORDER BY 1,2 DESC
+),
+
+
+LEAGUE_YEAR AS (
+    SELECT DISTINCT
+        LEAGUE_ID,
+        LEAGUE_CATEGORY,
+        LEAGUE_TYPE,
+        YEAR(LEAGUE_START_DATE) AS YEAR,
+        SOURCE
+        
+    FROM {{ ref('fact_league_starts') }}
+    UNION
+    SELECT DISTINCT
+        LEAGUE_ID,
+        LEAGUE_CATEGORY,
+        LEAGUE_TYPE,
+        YEAR(LEAGUE_RESET_DATE) AS YEAR,
+        SOURCE
+    
+    FROM {{ ref('fact_league_restarts') }}
+),
+
+REVENUE AS (
+    SELECT DISTINCT
+        LEAGUE_ID,
+        YEAR(TRANSACTION_DATE) AS YEAR,
+        SUM(TOTAL_AMOUNT) AS TOTAL_AMOUNT,
+        SOURCE
+        
+    FROM {{ ref('fact_revenue') }}
+    
+    GROUP BY 1,2, 4
+),
+
+MEMBERS_JOINED AS (
+    SELECT DISTINCT
+        LEAGUE_ID,
+        COUNT(DISTINCT MEMBER_EMAIL) AS TOTAL_MEMBERS_JOINED,
+        YEAR(DATE_JOINED) AS YEAR,
+        SOURCE
+        
+    FROM {{ ref('fact_member_league_joined') }}
+    GROUP BY 1,3,4
+),
+
+TOTAL_ACTIVE_ENTRIES AS (
+    SELECT DISTINCT
+        league_id,
+        year(PICK_DATE) as year,
+        source,
+        count(distinct sheet_id, team_id) as entries
+        FROM {{ ref('fact_active_entries') }} AE
+    group by 1,2,3
+    having entries >= 2
+),
+
+FINAL AS (
+    SELECT 
+        LY.LEAGUE_ID,
+        LY.YEAR,
+        LY.LEAGUE_CATEGORY,
+        LY.LEAGUE_TYPE,
+        C.IS_PUBLIC,
+        LS.LEAGUE_START_DATE,
+        IFNULL(R.TOTAL_AMOUNT,0) AS TOTAL_AMOUNT_PAID,
+        IFNULL(MJ.TOTAL_MEMBERS_JOINED,0) AS TOTAL_MEMBERS,
+        IFNULL(MJ.TOTAL_MEMBERS_JOINED,0) AS TOTAL_TEAMS,
+        IFNULL(TOTAL_ACTIVE_TEAMS,0) AS TOTAL_ACTIVE_TEAMS,
+        IFNULL(TOTAL_ENTRIES,0) AS TOTAL_ENTRIES,
+        LY.SOURCE,
+    	CASE
+		WHEN LA.GCLID IS NOT NULL THEN 'adw'
+		WHEN LA.FBCLID IS NOT NULL THEN 'fb'
+	        ELSE	L.SOURCE_CODE END AS SOURCE_CODE
+
+    FROM LEAGUE_YEAR LY
+        JOIN {{ ref('fact_league_starts') }}  LS ON LY.LEAGUE_ID = LS.LEAGUE_ID AND LY.SOURCE = LS.SOURCE
+        LEFT JOIN TOTAL_ACTIVE_TEAMS TAT ON LY.LEAGUE_ID = TAT.LEAGUE_ID AND LY.YEAR = TAT.YEAR AND LY.SOURCE = TAT.SOURCE
+        JOIN COMMISH C ON LY.LEAGUE_ID = C.LEAGUE_ID AND C.SOURCE = LY.SOURCE
+        LEFT JOIN MEMBERS_JOINED MJ ON LY.LEAGUE_ID = MJ.LEAGUE_ID AND LY.YEAR = MJ.YEAR AND LY.SOURCE = MJ.SOURCE
+        LEFT JOIN REVENUE R ON LY.LEAGUE_ID = R.LEAGUE_ID AND LY.SOURCE = R.SOURCE
+            AND LY.YEAR = R.YEAR
+        LEFT JOIN {{ ref('stg_ryp_leagues') }} L ON LY.LEAGUE_ID = L.LEAGUE_ID AND L.SOURCE = LY.SOURCE
+        LEFT JOIN {{ source('RYP_RUNYOURPOOL_DBO', 'LEAGUE_ADWORDS') }} LA ON LA.LEAGUE_ID = LY.LEAGUE_ID AND LY.SOURCE = 'RYP'
+
+    ORDER BY 2 DESC
+)
+
+
+
+SELECT * FROM FINAL
+ORDER BY LEAGUE_ID, SOURCE, YEAR

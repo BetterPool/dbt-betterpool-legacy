@@ -1,0 +1,23 @@
+version: 2
+sources:
+  - name: RYP_NFL_DBO
+    database: sources
+    tables:
+      - name: NFL_PICKEM_ENTRIES
+      - name: NFL_CREDITS_PICKS
+      - name: NFL_33_TEAM_ASSIGNMENTS
+      - name: NFL_FANTASY_PICKS
+      - name: NFL_FANTASY_ENTRIES
+      - name: NFL_MARGIN_PICKS
+      - name: NFL_PLAYOFF_BRACKET_PICKS
+      - name: NFL_PLAYOFF_PRECISION_PICKS
+      - name: NFL_PLAYOFFPOWER_PICKS
+      - name: PICKS_SURVIVOR
+      - name: PICKS_WITH_SPREAD
+      - name: NFL_SURVIVOR_ENTRIES
+      - name: NFL_PLAYOFF_BRACKET_ENTRIES
+      - name: NFL_CONFIDENCE_ENTRIES
+      - name: NFL_SQUARES_SETTINGS
+      - name: GAMES_NFL
+      - name: NFL_SQUARES_ENTRIES
+      - name: PICKS_NFL_SQUARES

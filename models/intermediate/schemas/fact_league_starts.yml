@@ -1,0 +1,19 @@
+version: 2
+models:
+- name: fact_league_starts 
+  description: Contains information on the date a league started. 
+  columns:
+  - name: ID
+    description: 'ID for the start'
+
+  - name: LEAGUE_START_DATE 
+    description: 'Date the reset was made'
+
+  - name: LEAGUE_CATEGORY
+    description: 'The sport'
+
+  - name: LEAGUE_ID
+    description: 'ID of the league that was started'
+
+  - name: SOURCE
+    description: 'What product is this data coming from'

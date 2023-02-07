@@ -1,0 +1,18 @@
+version: 2
+sources:
+  - name: RYP_RUNYOURPOOL_DBO
+    database: sources
+    tables:
+      - name: MEMBERS
+      - name: LEAGUES
+      - name: LEAGUE_TYPES
+      - name: LEAGUE_CATEGORIES
+      - name: ORDER
+        quoting:
+          identifier: true
+      - name: ORDERITEM
+      - name: ORDERTRANSACTION
+      - name: LEAGUE_RESET_STATUS
+      - name: TEAMS
+      - name: USER_CONNECTIONS
+      - name: LEAGUE_ADWORDS

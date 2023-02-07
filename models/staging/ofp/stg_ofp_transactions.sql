@@ -1,0 +1,25 @@
+{{ 
+    config(
+        materialized='table', 
+        alias='STG_OFP_TRANSACTIONS',
+	tags=["stg-ofp"]
+
+    ) 
+}}
+
+WITH FINAL AS (
+    SELECT
+		TRANSID AS TRANSACTION_ID,
+		TRANSDATE::DATE AS TRANSACTION_DATE,
+		AMOUNT AS AMOUNT,
+		POOLID AS POOL_ID,
+		MEMBERID AS MEMBER_ID,
+		SEASONID AS SEASON_ID,
+		STATUS AS STATUS
+		
+    FROM
+        {{ source('OFP_DBO', 'OFPTRANSACTIONS') }}
+	WHERE STATUS LIKE 'Success' AND VOIDED = 0
+)
+
+SELECT * FROM FINAL
