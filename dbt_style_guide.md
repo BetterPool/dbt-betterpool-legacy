@@ -20,8 +20,8 @@ Our models (typically) fit into three main categories: staging, intermediate, an
     |       └── fact_active_entries.sql
     └── metrics (gold)
         ├── accounts
-        |   ├── member_status.sql
-            └── leagues.sql
+        |   ├── pools_zero_members_yearly.sql
+            └── nnau_by_league_category.sql
 ```
 - All objects should be plural, such as: `stg_stripe__invoices`
 - Base tables are prefixed with `base__`, such as: `base__<source>_<object>`
