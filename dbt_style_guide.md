@@ -16,12 +16,12 @@ Our models (typically) fit into three main categories: staging, intermediate, an
     |       └── stg_ofp_allsports.sql
     ├── intermediate (silver)
     |   └── core
-    |       ├── dim_customers.sql
-    |       └── fact_pick_events.sql
+    |       ├── fact_league_commish.sql
+    |       └── fact_active_entries.sql
     └── metrics (gold)
         ├── accounts
         |   ├── member_status.sql
-
+    |       └── leagues.sql
 ```
 - All objects should be plural, such as: `stg_stripe__invoices`
 - Base tables are prefixed with `base__`, such as: `base__<source>_<object>`
