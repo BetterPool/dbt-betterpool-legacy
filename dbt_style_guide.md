@@ -5,31 +5,22 @@ Our models (typically) fit into three main categories: staging, intermediate, an
 ```
 ├── dbt_project.yml
 └── models
-    ├── staging
+    ├── staging (bronze)
     |   └── RYP
     |       ├── stg_ryp_pick_log_cfb.sql
     |       ├── stg_ryp_teams.sql
     |       └── stg_ryp_leagues.sql
     |   └── OFP
-    |       ├── 
-    |       ├── 
-    |       ├── 
-    |       └── 
-    |   └── New_Product
-    |       ├── 
-    |       ├── 
-    |       ├── 
-    |       └──     
-    ├── intermediate
+    |       ├── stg_ofp_members.sql
+    |       ├── stg_ofp_picks.sql
+    |       └── stg_ofp_allsports.sql
+    ├── intermediate (silver)
     |   └── core
     |       ├── dim_customers.sql
     |       └── fact_pick_events.sql
-    └── metrics
+    └── metrics (gold)
         ├── accounts
-        |   ├── 
-        └── revenue
-            ├── 
-            └── 
+        |   ├── member_status.sql
 
 ```
 - All objects should be plural, such as: `stg_stripe__invoices`
