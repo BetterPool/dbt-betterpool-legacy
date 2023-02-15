@@ -9,24 +9,23 @@
 WITH MEMBERS AS (
     SELECT
         MEMBER_ID,
-        EMAILCONFIRMED,
+     EMAILCONFIRMED,
         USERNAME,
         CREDIT_DATE_TIME,
-        REGIONAWS,
-        MEMBER_LAST_NAME,
-        CREDIT,
+     REGIONAWS,
+       MEMBER_LAST_NAME,
         PHONE,
         MEMBER_FIRST_NAME,
-        DATE_TIME_CREATED,
+     DATE_TIME_CREATED,
         MEMBER_EMAIL,
         COUNTRYAWS,
-        PASSWORDHASH,
+    PASSWORDHASH,
         IPADDRESS,
         DISPLAY_NAME,
-        REFERRAL_CODE,
+     REFERRAL_CODE,
         REFERRED_BY,
-        CHAT_USER_ID,
-        'RYP' AS SOURCE
+CHAT_USER_ID,
+'RYP' AS SOURCE
     FROM
         {{ source('RYP_RUNYOURPOOL_DBO', 'MEMBERS') }}
 )
